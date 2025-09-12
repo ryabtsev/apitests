@@ -14,7 +14,7 @@ Use a Large Language Model (e.g., Gemini) with a RAG system to auto-generate tes
 
 For black-box testing, `patch` your app's HTTP client to redirect traffic to a local **Active Stub Server**. The stub server queries the `GenTests` generator for dynamic, context-aware responses for each test, allowing you to test an unmodified application.
 
-### Data Collection During Generation
+### Data Collection During Generation and "live documentation"
 As tests are generated and run, the framework can collect valuable data, such as:
 -   Request/response payloads from mocked services.
 -   Application logs emitted during the test.
