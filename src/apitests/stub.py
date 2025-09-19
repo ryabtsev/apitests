@@ -1,5 +1,5 @@
 """
-Stubs handler based on APIStubs notations
+Active Stubs handler based on APIStubs notations
 
 It uses multi libraries patched methods behind opentelemetry wrappers.
 Real opentelemetry traces are produced through tests running.
@@ -29,7 +29,7 @@ else:
     HTTP_CORE_ENABLED = True
 
 try:
-    import aiohttp  # noqa: F401
+    import aiohttp
 except ImportError:
     AIOHTTP_ENABLED = False
 else:
@@ -61,7 +61,7 @@ class MockResponse(requests.Response):
 
 class MockResponseAsync(MockResponse):
     async def json(self, *args, **keargs):
-        return json.loads(self._content)  # type: ignore[arg-type]
+        return json.loads(self._content)
 
 
 class StubsFileMixin:
@@ -132,11 +132,11 @@ class Stubs(StubsFileMixin):
             if not content_key:
                 content_key = key
             stub_alias = key.split('-')[1]
-            if stub_alias in self.prompt:  # type: ignore[operator]
+            if stub_alias in self.prompt:
                 content_key = key
-                self.prompt.remove(stub_alias)  # type: ignore[union-attr]
+                self.prompt.remove(stub_alias)
         content = options[content_key]
-        status = int(content_key.split('-')[0])  # type: ignore[union-attr]
+        status = int(content_key.split('-')[0])
         return status, content
 
     @contextmanager
@@ -282,7 +282,7 @@ class Stubs(StubsFileMixin):
         params = self.normalize_query(kwargs.get('params'))
         self.test_case.assertEqual(
             params, expected,
-            'Unxpected request params. Point %s' % point.raw
+            'Unexpected request params. Point %s' % point.raw
         )
 
     def httpcore_handle_request(self, request):

@@ -10,12 +10,12 @@ version = "0.0.1"
 authors = [
   { name="Eugene Rabtsau", email="e.ryabtsev@gmail.com" },
 ]
-description = "A small example package"
+description = "Runtime test generation framework"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: BSD 3-Clause License",
+    "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
