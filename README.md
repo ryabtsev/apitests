@@ -1,8 +1,11 @@
-# GenTests for Python
-
-**Runtime test generation framework** 
+# APITESTS: AI-Powered Runtime Test Generator for Microservices
 
 Define `GenTestCase` blueprints with parameter sets; the framework generates a test for each combination, reducing boilerplate and increasing coverage.
+
+## Installation
+```bash
+$ pip install apitests
+```
 
 ## Key concepts
 
@@ -39,5 +42,17 @@ $ pytest tests/test_mod.py -m=generator
 ```
 
 
+## PYPI publising:
+1. Fix version 
 
+2. Build
+
+```bash
+$ python -m build
+```
+
+3. Upload to pypi
+```bash
+$ python -m twine upload dist/*
+```
 
