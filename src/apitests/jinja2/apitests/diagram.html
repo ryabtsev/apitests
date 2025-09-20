@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>[GenTests] {{ feature }}</title>
+</head>
+<script type="text/javascript" charset="utf-8" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<style>
+    body {font-family: Arial, Helvetica, sans-serif; background: #000;}
+    html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+h1, h2 {display: block; background: #FDDA0D; padding: 10px 20px;}
+h1 {padding-top: 20px; font-family: 'Courier New', Courier, monospace;}
+h1 i {font-weight: normal; font-style: normal;}
+h2 {font-weight: normal;}
+h2 b {font-weight: bold;}
+h2 span {
+    text-decoration: underline; text-decoration-style: dashed;
+    cursor: pointer;
+}
+.td_kube {
+    color: #fff; padding: 8px 10px;text-shadow: 1px 1px 2px black;
+
+}
+.td_info {
+    cursor: pointer;
+}
+.td_div_first {
+    width: 180px; height: 60px;overflow: hidden;
+}
+.td_title {
+    text-decoration: underline; text-decoration-style: dashed; cursor: pointer
+}
+.td_overstring {
+    direction: rtl; width: 180px; overflow: hidden; font-size: 12px;
+}
+.td_overstring_span {
+    direction: ltr; display: inline-block;
+}
+.td_kind {
+    text-align: right;
+    display: block;
+    color: #fff;
+    text-decoration: underline; text-decoration-style: dashed;
+}
+.prompt {font-size: 12px;}
+.hidden {
+    display: none;
+}
+.kind_checkbox {
+    position: absolute;
+    margin: -1px 0 0 0px;
+}
+.td_arrow {
+    position: absolute;
+    margin: 24px 0 0 176px;
+    height: 12px;
+    width: 20px;
+    border-radius: 10px;
+}
+.td_branch_header {
+    position: absolute;
+    margin: -6px 0 0 -7px;
+    color: #fff;
+    font-size: 11px;
+    background: #000;
+    padding: 2px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.td_branch_header a {
+    color: #fff;
+    text-decoration: none;
+}
+.td_branch_header a.patch {
+    display: inline-block;
+    border: #FFF solid 1px;
+    color: #fff;
+    font-size: 9px;
+    text-decoration: none;
+    padding: 2px 2px 1px 2px;
+    border-radius: 3px;
+}
+.td_kube {
+    border-bottom: rgba(50, 50, 93, 0.25) 1px dashed;
+}
+.tr_info td {
+    padding: 10px;color: #fff; padding: 8px 10px;text-shadow: 1px 1px 2px black;
+    box-shadow: inset 0 0 7px #000;
+}
+a.link {color: #fff;}
+
+.filter_link {border-bottom: rgba(50, 50, 93, 0.25) 1px dashed; color: #000; text-decoration: none;}
+.h_icon {display: inline-block; width: 15px; text-align: center;}
+.addinfo_block {color: #fff; padding: 10px; display: none; }
+
+.gentests_desc {padding: 9px 48px; background: #FDDA0D;font-family: 'Courier New', Courier, monospace; font-size: 16px;}
+.gentests_desc a {color: #000;}
+#filter_block h2 {padding-left: 48px;}
+</style>
+<script>
+    function downloadString(text, fileType, fileName) {
+        var blob = new Blob([text], { type: fileType });
+
+        var a = document.createElement('a');
+        a.download = fileName;
+        a.href = URL.createObjectURL(blob);
+        a.dataset.downloadurl = [fileType, a.download, a.href].join(':');
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function() { URL.revokeObjectURL(a.href); }, 1500);
+    }
+    $(function(){
+        $('h2.toggle').click(function(){
+            $(this).next().toggleClass('hidden');
+        });
+        $('.kind_checkbox').change(function() {
+            var selected = new Array();
+            $('.kind_checkbox:checked').each(function(){
+                selected.push($(this).val());
+            });
+            $('.tr_info').hide();
+            console.log(selected);
+            if (selected.length === 0) {
+                $('.kind_tr').removeClass('hidden');
+            }
+            $('.kind_tr').each(function(){
+                var colors = $(this).data('colors');
+                for(var i = 0; i < selected.length; i++)  {
+                    if(colors.includes(selected[i])) {
+                        $(this).removeClass('hidden');
+                    } else{
+                        $(this).addClass('hidden');
+                    }
+                }
+            });
+        });
+
+        $('.td_info').click(function(){
+            var m = $(this).data('m'), index = $(this).data('index');
+            $('.tr_info').hide();
+            $('.tr_info_' + index + m).show();
+            return false;
+        });
+        $('#filter_title').click(function(){
+            $('#filter_block').toggle(); return false;
+        });
+        $('#trace_title').click(function(){
+            $('#trace_block').toggle(); return false;
+        });
+    });
+</script>
+<body>
+    <h1><span class="h_icon">&#10697;</span>&nbsp;Feature: {{ feature }}</h1>
+    <h1><span class="h_icon">&#8277;</span> [Info]</h1>
+    <div class="gentests_desc">
+        Workflows are built by GenTests.
+    </div>
+    <h1><span class="h_icon">&#8675;</span> <a id="trace_title" class="filter_link" href="#">[OpenTelemetry] Common trace</a></h1>
+    <div id="trace_block" class="addinfo_block">
+        <pre>{{ trace }}</pre>
+    </div>
+    <h1><span class="h_icon">&#8675;</span> <a id="filter_title" class="filter_link" href="#">[APIStubs] Filter</a></h1>
+    <div id="filter_block" style="display: none;">
+    {% for group, items in index.items() %}
+    <h2 class="toggle">* <span>{{ items.name }}</span></h2>
+    <table class="hidden">
+    <tr>
+    {% for color, point in items.entries.items() %}
+    <td class="td_kube" style="background: #{{ point.color }}" title="{{ point.title }}">
+        <div class="td_div_first">
+            <input type="checkbox" name="kind_checkbox" class="kind_checkbox" value="{{ point.color }}">
+            <span class="td_title">
+                <div class="td_kind">
+                    {{ point.kind.upper() }}
+                </div>
+                {% if point.method %}[{{ point.method }}]{% endif %}
+                {{ point.status }}
+                {% if not point.preview %}
+                    {{ point.exchange }}
+                {% endif %}
+            </span>
+            <br />
+            <div class="td_overstring">
+                <span class="td_overstring_span">
+                    {{ point.path }}
+                    {% if point.preview %}
+                        <a class="link" href="{{ point.preview }}" target="_blank">Preview in browser</a>
+                    {% else %}
+                        {{ point.routing_key }}
+                    {% endif %}
+                <span>
+            </div>
+        </div>
+    </td>
+    {% endfor %}
+    </tr>
+    </table>
+    {% endfor %}
+    </div>
+    <h1><span class="h_icon">&#9782;</span> [Workflows] Tests and Datasets</h1>
+<table>
+    {% for test in data %}
+    <tr class="kind_tr" data-colors='{{ test.colors }}''>
+        {% for point in test.entries %}
+        <td class="td_kube td_info"
+            style="background: #{{ point.color }}"
+            data-m="{{ point.m }}"
+            data-index="{{ point.index }}">
+
+            <div class="td_arrow" style="background: #{{ point.color }}"></div>
+
+            <div class="td_div_first">
+                {% if point.branch_header %}
+                <div class="td_branch_header">
+                    <a class="patch" href="#branch_{{ point.branch }}">WORKFLOW</a>
+                    <a href="#branch_{{ point.branch }}" name="branch_{{ point.branch }}">
+                        w{{ point.branch_header }}
+                    </a>
+                </div>
+                {% endif %}
+
+                <span class="td_title">
+                    <a class="td_kind">
+                        {{ point.kind|safe }}
+                    </a>
+                    {% if point.method %}[{{ point.method }}]{% endif %}
+                    {% if point.status %}
+                        {{ point.status }} <span class="prompt">{{ point.prompt }}</span>
+                    {% endif %}
+                    {% if not point.preview %}
+                        {{ point.exchange }}
+                    {% endif %}
+                </span>
+                <br />
+                <div class="td_overstring">
+                    <span class="td_overstring_span">
+                        {{ point.path }}
+                        {% if point.preview %}
+                            <a class="link" href="{{ point.preview }}" target="_blank">Preview in browser</a>
+                        {% else %}
+                            {{ point.routing_key }}
+                        {% endif %}
+                    <span>
+                </div>
+            </div>
+        </td>
+        {% endfor %}
+        <td></td>
+    </tr>
+    {% for point in test.entries %}
+    <tr class="tr_info tr_info_{{ point.index }}{{ point.m }}" style="background: #{{ point.color }}; display: none;">
+        <td colspan="{{ max_size }}">
+            <pre>{{ point.title }}</pre>
+        </td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+</table>
+
+</body>
+</html>
