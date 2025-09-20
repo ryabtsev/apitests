@@ -12,7 +12,13 @@
 
 
 3. External API request in service "github" method:get path:/ 
-Response content: {'authorizations_url': 'https://api.github.com/authorizations', 'code_search_url': 'https://api.github.com/search/code?q={query}{&page,per_page,sort,order}', 'commit_search_url': 'https://api.github.com/search/commits?q={query}{&page,per_page,sort,order}', 'current_user_authorizations_html_url': 'https://github.com/settings/connections/applications{/client_id}', 'current_user_repositories_url': 'https://api.github.com/user/repos{?type,page,per_page,sort}', 'current_user_url': 'https://api.github.com/user', 'emails_url': 'https://api.github.com/user/emails', 'emojis_url': 'https://api.github.com/emojis', 'events_url': 'https://api.github.com/events', 'feeds_url': 'https://api.github.com/feeds', 'followers_url': 'https://api.github.com/user/followers', 'following_url': 'https://api.github.com/user/following{/target}', 'gists_url': 'https://api.github.com/gists{/gist_id}', 'hub_url': 'https://api.github.com/hub', 'issue_search_url': 'https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}', 'issues_url': 'https://api.github.com/issues', 'keys_url': 'https://api.github.com/user/keys', 'license_search_url': 'https://api.github.com/search/licenses?q={query}{&page,per_page,sort,order}', 'notifications_url': 'https://api.github.com/notifications', 'organization_repositories_url': 'https://api.github.com/orgs/{org}/repos{?type,page,per_page,sort}', 'organization_url': 'https://api.github.com/orgs/{org}', 'rate_limit_url': 'https://api.github.com/rate_limit', 'repository_search_url': 'https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}', 'repository_url': 'https://api.github.com/repos/{owner}/{repo}', 'starred_gists_url': 'https://api.github.com/gists/starred', 'starred_url': 'https://api.github.com/user/starred{/owner}{/repo}', 'teams_url': 'https://api.github.com/teams', 'user_organizations_url': 'https://api.github.com/user/orgs', 'user_search_url': 'https://api.github.com/search/users?q={query}{&page,per_page,sort,order}', 'user_url': 'https://api.github.com/users/{user}'}
+Response content: {'name': 'name'}
+Response status: 200
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response content: {'country': [{'country_id': 'GB', 'probability': 0.67}, {'country_id': 'US', 'probability': 0.23}, {'country_id': 'CA', 'probability': 0.05}, {'country_id': 'AU', 'probability': 0.02}, {'country_id': 'NZ', 'probability': 0.01}, {'country_id': 'IE', 'probability': 0.01}, {'country_id': 'ZA', 'probability': 0.01}], 'name': 'kate'}
 Response status: 200
 
 
@@ -29,6 +35,45 @@ Response status: 200
 
 
 3. External API request in service "github" method:get path:/ 
+Response content: {'name': 'name'}
+Response status: 200
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response status: 404
+
+
+
+5. External API request in service "ipinfo" method:get path:/161.185.160.93/geo 
+Response content: {'city': 'London', 'country': 'GB', 'loc': '51.5074,-0.1278', 'postal': 'SW1A', 'region': 'England', 'timezone': 'Europe/London'}
+Response status: 200
+
+
+
+
+## Scenario 3
+
+1. Use context "context_default"
+
+
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response content: {'name': 'name'}
+Response status: 200
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response status: 404
+
+
+
+5. External API request in service "ipinfo" method:get path:/161.185.160.93/geo 
 Response status: 404
 
 
@@ -45,7 +90,84 @@ Response status: 404
 
 
 3. External API request in service "github" method:get path:/ 
+Response content: {'name': 'name'}
+Response status: 200
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response status: 404
+
+
+
+5. External API request in service "ipinfo" method:get path:/161.185.160.93/geo 
 Response status: 500
+
+
+
+
+## Scenario 
+
+1. Use context "context_default"
+
+
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response content: {'name': 'name'}
+Response status: 200
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response status: 500
+
+
+
+
+## Scenario 4
+
+1. Use context "context_default"
+
+
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response status: 404
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response content: {'country': [{'country_id': 'GB', 'probability': 0.67}, {'country_id': 'US', 'probability': 0.23}, {'country_id': 'CA', 'probability': 0.05}, {'country_id': 'AU', 'probability': 0.02}, {'country_id': 'NZ', 'probability': 0.01}, {'country_id': 'IE', 'probability': 0.01}, {'country_id': 'ZA', 'probability': 0.01}], 'name': 'kate'}
+Response status: 200
+
+
+
+
+## Scenario 
+
+1. Use context "context_default"
+
+
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response status: 500
+
+
+
+4. External API request in service "nationalize" method:post path:/ with query params: {'name': 'kate'}
+Response content: {'country': [{'country_id': 'GB', 'probability': 0.67}, {'country_id': 'US', 'probability': 0.23}, {'country_id': 'CA', 'probability': 0.05}, {'country_id': 'AU', 'probability': 0.02}, {'country_id': 'NZ', 'probability': 0.01}, {'country_id': 'IE', 'probability': 0.01}, {'country_id': 'ZA', 'probability': 0.01}], 'name': 'kate'}
+Response status: 200
 
 
 

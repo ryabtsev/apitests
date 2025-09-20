@@ -43,6 +43,8 @@ EXTERNALS.update({
     'api.github.com': 'github',
     'api.twitter.com': 'twitter',
     'api.linkedin.com': 'linkedin',
+    'ipinfo.io': 'ipinfo',
+    'api.nationalize.io': 'nationalize',
 })
 
 

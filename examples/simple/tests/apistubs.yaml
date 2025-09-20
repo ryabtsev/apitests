@@ -1,8 +1,41 @@
 apistubs: 1.0.0
 
-
 github:
   get#/:
-    200-ok: {}
-    404-not_found: {}  
+    200-ok:
+      name: name
+    404-not_found: {}
     500-error: {}
+ipinfo:
+  get#/{ip}/geo:
+    200-ok_a33f416397_ipinfo:
+      city: London
+      country: GB
+      loc: 51.5074,-0.1278
+      postal: SW1A
+      region: England
+      timezone: Europe/London
+    404-not_found_a33f416397_ipinfo: {}
+    500-error_a33f416397_ipinfo: {}
+nationalize:
+  post#/:
+    200-ok_7583741b24_nationalize:
+      country:
+      - country_id: GB
+        probability: 0.67
+      - country_id: US
+        probability: 0.23
+      - country_id: CA
+        probability: 0.05
+      - country_id: AU
+        probability: 0.02
+      - country_id: NZ
+        probability: 0.01
+      - country_id: IE
+        probability: 0.01
+      - country_id: ZA
+        probability: 0.01
+      name: kate
+    404-not_found_7583741b24_nationalize: {}
+    500-error_7583741b24_nationalize: {}
+
