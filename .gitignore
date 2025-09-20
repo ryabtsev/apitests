@@ -35,3 +35,6 @@ Pipfile.lock
 
 ### MasOS system files ###
 .DS_Store
+
+# Temp
+/examples/simple/apitests
