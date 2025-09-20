@@ -38,3 +38,8 @@ Pipfile.lock
 
 # Temp
 /examples/simple/apitests
+
+*.apiflows.yaml
+*.apiflows.html
+*.arazzo.yaml
+*.arazzo.html

@@ -12,6 +12,7 @@ from .mixins import WorkflowTestCaseMixin
 
 __all__ = (
     'GenTestCase',
+    'WorkflowTestCaseMixin',
     'WorkflowTestCase',
 )
 

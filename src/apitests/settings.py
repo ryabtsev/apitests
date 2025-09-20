@@ -40,6 +40,9 @@ if IS_DJANGO_STACK:
 EXTERNALS.update({
     'graph.microsoft.com': 'graphmicrosoft',
     'graph.facebook.com': 'facebook',
+    'api.github.com': 'github',
+    'api.twitter.com': 'twitter',
+    'api.linkedin.com': 'linkedin',
 })
 
 

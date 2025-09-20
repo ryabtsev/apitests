@@ -1,2 +1,6 @@
 apistubs: 1.0.0
 
+
+github:
+  get#/:
+    200-ok: {}

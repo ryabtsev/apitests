@@ -82,6 +82,12 @@ class WorkflowHandlerMixin:
                 yield mock_request
                 self.requests_mocked = False
 
+    def is_e2e_mode(self):
+        return False
+    
+    def is_telemetry_mode(self):
+        return False    
+    
     def run_workflow(self, workflow=None):
         if not workflow:
             workflow = []

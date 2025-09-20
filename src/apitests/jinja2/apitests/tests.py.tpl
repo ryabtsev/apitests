@@ -8,9 +8,9 @@ from django.test import (
 {% else -%}
 import pytest
 
-from aiohttp.test_utils import AioHTTPTestCase as TestCase
+from unittest import TestCase
 {% endif %}
-from gentests.base import points
+from apitests import points
 
 from {{ contexts_mixin[0] }} import {{ contexts_mixin[1] }}
 
@@ -22,8 +22,6 @@ __all__ = (
 {% if IS_DJANGO_STACK -%}
 @tag('e2e', 'telemetry')
 {% else -%}
-@pytest.mark.e2e
-@pytest.mark.telemetry
 {% endif -%}
 class AutoGen{{ self_class[1] }}(
     {{ contexts_mixin[1] }},
