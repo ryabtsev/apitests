@@ -4,3 +4,5 @@ apistubs: 1.0.0
 github:
   get#/:
     200-ok: {}
+    404-not_found: {}  
+    500-error: {}

@@ -38,6 +38,7 @@ Pipfile.lock
 
 # Temp
 /examples/simple/apitests
+/examples/simple/ai.py
 
 *.apiflows.yaml
 *.apiflows.html

@@ -470,6 +470,10 @@ class GenerativeTestCaseMixin(ContextMixin, metaclass=GenMeta):
         with open(cls.get_pipeline_rag(), 'w') as tests_file:
             tests_file.write(render_tests(cls.render_context, cls.render_template_md))
 
+        yaml_dumps(cls.stubs_instance.data_used)
+        # TODO: improve approuche 
+        print(yaml_dumps(cls.stubs_instance.data_used))
+
     @classmethod
     def save_artifact(cls, name, data):
         name = name.format(feature=cls.feature)

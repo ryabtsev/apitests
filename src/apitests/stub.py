@@ -160,8 +160,13 @@ class Stubs(StubsFileMixin):
 
     @contextmanager
     def patch_requests(self):
-        with patch('requests.adapters.HTTPAdapter.send', wraps=self.send):
-            yield
+        # parallel gemini requests
+        self.requests_patcher = patch('requests.adapters.HTTPAdapter.send', wraps=self.send)
+        self.requests_patcher.start()
+        yield
+        self.requests_patcher.stop()
+        # with patch('requests.adapters.HTTPAdapter.send', wraps=self.send) as self.requests_patcher:
+        #   yield
 
     @contextmanager
     def up(

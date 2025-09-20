@@ -50,7 +50,8 @@ class LogsTestCaseMixin:
                 )
                 logs_points.append(point)
                 if test_case.generator_mode:  # type: ignore[attr-defined]
-                    test_case.extend_pipeline([point.raw])  # type: ignore[attr-defined]
+                    # DISABLED: found a bug 
+                    # test_case.extend_pipeline([point.raw])  # type: ignore[attr-defined]
                     return
 
             def isEnabledFor(self, level):

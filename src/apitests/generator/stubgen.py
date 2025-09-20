@@ -1,12 +1,14 @@
 import itertools
 import json
 import time
+import hashlib
 from copy import deepcopy
 from urllib.parse import (
     parse_qs,
     urlparse,
 )
 
+from apitests.contrib.gemini import get_payload
 from apitests.stub import (
     MockResponse,
     MockResponseAsync,
@@ -218,11 +220,12 @@ class StubsGenMixin:
         service, path = self.get_external_service(url)
         if not service:
             raise NotImplementedError(
-                'Request to apidocs (Open API specs) for expanding .stubs file. '
+                'Request to apidocs (Open API specs) for expanding .apistubs file. '
                 'Url: [%s] %s (%s)' % (method, url, kwargs)
             )
 
         method = method.lower()
+        method_pattern = None
         pattern, options = self.get_pattern_data(self.data if self.pipeline else self.data_used, service, path, method=method)
         if not options:
             pattern, options = self.get_pattern_data(self.data, service, path, method=method)
@@ -234,12 +237,32 @@ class StubsGenMixin:
                 self.reload_combination()
 
         if not options:
-            raise NotImplementedError(
-                'Request RAG for expanding .stubs file. '
-                'Url: [%s] %s' % (method.upper(), url, )
-            )
+            self.requests_patcher.stop()
+            payload = get_payload(method.upper(), url, )
+            self.requests_patcher.start()
+            if payload is None:
+                raise NotImplementedError(
+                    'Extend apistubs.yaml file.\n'
+                    'Prompt example fro LLM (Gemini) includind internal RAG or/and MCPs:\n'
+                    'Suggest response for http request: '
+                    '[%s] %s' % (method.upper(), url, )
+                )
+            else:
+                method_pattern = '#'.join([method, path])
+                key = hashlib.sha256(method_pattern.encode('utf-8')).hexdigest()[:10]
+                options = {
+                    '200-ok_' + key: payload,
+                    '404-not_found_' + key: {},
+                    '500-error_' + key: {},
+                }
+                self.data_used.setdefault(service, {})
+                self.data_used[service][method_pattern] = options
+                self.stub_combination += (0, )
+                self.reload_combination()
+        
+        if method_pattern is None:
+            method_pattern = '#'.join([method, pattern])
 
-        method_pattern = '#'.join([method, pattern])
         index = self.get_response_index(service, method_pattern)
         cases = list(options.keys())
         content_key = cases[index]

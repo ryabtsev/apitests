@@ -12,22 +12,40 @@
 
 
 3. External API request in service "github" method:get path:/ 
+Response content: {'authorizations_url': 'https://api.github.com/authorizations', 'code_search_url': 'https://api.github.com/search/code?q={query}{&page,per_page,sort,order}', 'commit_search_url': 'https://api.github.com/search/commits?q={query}{&page,per_page,sort,order}', 'current_user_authorizations_html_url': 'https://github.com/settings/connections/applications{/client_id}', 'current_user_repositories_url': 'https://api.github.com/user/repos{?type,page,per_page,sort}', 'current_user_url': 'https://api.github.com/user', 'emails_url': 'https://api.github.com/user/emails', 'emojis_url': 'https://api.github.com/emojis', 'events_url': 'https://api.github.com/events', 'feeds_url': 'https://api.github.com/feeds', 'followers_url': 'https://api.github.com/user/followers', 'following_url': 'https://api.github.com/user/following{/target}', 'gists_url': 'https://api.github.com/gists{/gist_id}', 'hub_url': 'https://api.github.com/hub', 'issue_search_url': 'https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}', 'issues_url': 'https://api.github.com/issues', 'keys_url': 'https://api.github.com/user/keys', 'license_search_url': 'https://api.github.com/search/licenses?q={query}{&page,per_page,sort,order}', 'notifications_url': 'https://api.github.com/notifications', 'organization_repositories_url': 'https://api.github.com/orgs/{org}/repos{?type,page,per_page,sort}', 'organization_url': 'https://api.github.com/orgs/{org}', 'rate_limit_url': 'https://api.github.com/rate_limit', 'repository_search_url': 'https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}', 'repository_url': 'https://api.github.com/repos/{owner}/{repo}', 'starred_gists_url': 'https://api.github.com/gists/starred', 'starred_url': 'https://api.github.com/user/starred{/owner}{/repo}', 'teams_url': 'https://api.github.com/teams', 'user_organizations_url': 'https://api.github.com/user/orgs', 'user_search_url': 'https://api.github.com/search/users?q={query}{&page,per_page,sort,order}', 'user_url': 'https://api.github.com/users/{user}'}
 Response status: 200
 
 
 
-4. Log message
-Level 5:charset_normalizer override steps (5) and chunk_size (512) as content does not fit (2 byte(s) given) parameters.
 
-5. Log message
-Level 5:charset_normalizer Trying to detect encoding from a tiny portion of (2) byte(s).
+## Scenario 2
 
-6. Log message
-Level 5:charset_normalizer ascii passed initial chaos probing. Mean measured chaos is 0.000000 %
+1. Use context "context_default"
 
-7. Log message
-Level 5:charset_normalizer ascii should target any language(s) of ["Latin Based"]
 
-8. Log message
-DEBUG:charset_normalizer Encoding detection: ascii is most likely the one.
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response status: 404
+
+
+
+
+## Scenario 
+
+1. Use context "context_default"
+
+
+
+2. Process operation "handle"
+
+
+
+3. External API request in service "github" method:get path:/ 
+Response status: 500
+
+
 
