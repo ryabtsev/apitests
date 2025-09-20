@@ -10,7 +10,7 @@ version = "0.0.1"
 authors = [
   { name="Eugene Rabtsau", email="e.ryabtsev@gmail.com" },
 ]
-description = "Runtime test generation framework"
+description = "APITESTS: AI-Powered Runtime Test Generator for Microservices"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -20,7 +20,10 @@ classifiers = [
 ]
 dependencies = [
     "requests", 
+    "PyYAML", 
+    "Jinja2",
+    "parse"
 ]
 
 [project.urls]
-Homepage = "https://ainvention.net/gentests/"
+Source = "https://github.com/ryabtsev/apitests"
