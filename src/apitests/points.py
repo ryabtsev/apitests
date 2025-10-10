@@ -28,6 +28,11 @@ Frozen Points are used for tests from apistubs notation:
     {status}-{alias}: {content}
     ...
 ```
+
+
+TODO:
+* use @dataclass(frozen=True) to make points hashable and modern
+
 """
 
 import copy
