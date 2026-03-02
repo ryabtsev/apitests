@@ -336,10 +336,14 @@ class Stubs(StubsFileMixin):
                     if point:
                         self.assertEqualData(point, **kwargs)
                         self.assertEqualParams(point, **kwargs)
-                        self.test_case.assertDictContainsSubset(
-                            point.headers or {}, kwargs.get('headers', {}),
-                            'Unxpected request headers. Point %s' % point.raw
-                        )
+
+                        expected_headers = point.headers or {}
+                        actual_headers = kwargs.get('headers', {})
+                        for key, value in expected_headers.items():
+                            self.test_case.assertEqual(
+                                actual_headers.get(key), value,
+                                'Unxpected request headers. Point %s' % point.raw
+                            )
                     if status is None:
                         status, content = self.select_response(options)
 

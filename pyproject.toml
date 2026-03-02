@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "apitests"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Eugene Rabtsau", email="e.ryabtsev@gmail.com" },
 ]
@@ -27,3 +27,6 @@ dependencies = [
 
 [project.urls]
 Source = "https://github.com/ryabtsev/apitests"
+
+[tool.setuptools.package-data]
+apitests = ["jinja2/apitests/*.tpl", "jinja2/apitests/*.html"]
