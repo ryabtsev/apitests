@@ -27,3 +27,6 @@ dependencies = [
 
 [project.urls]
 Source = "https://github.com/ryabtsev/apitests"
+
+[tool.setuptools.package-data]
+apitests = ["jinja2/apitests/*.tpl", "jinja2/apitests/*.html"]
